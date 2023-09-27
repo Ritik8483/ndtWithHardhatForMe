@@ -21,6 +21,7 @@ contract Marketplace is ReentrancyGuard {
         address payable seller;
         bool sold;
     }
+    Item[] transactions;
 
     mapping(uint => Item) public items;
 
@@ -124,10 +125,8 @@ contract Marketplace is ReentrancyGuard {
     //     delete (items[_itemId]);
     //     emit ItemCanceled(_itemId);
     // }
-    function deleteNftFromMarket(address nftAddress, uint256 _itemId)
-        external
-    {
-         delete (items[_itemId]);
+    function deleteNftFromMarket(uint _itemId , address nftAddress) external {
+        delete (items[_itemId]);
         emit ItemCanceled(msg.sender, nftAddress, _itemId);
     }
 }

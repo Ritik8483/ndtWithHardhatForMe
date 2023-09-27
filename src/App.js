@@ -79,3 +79,15 @@ export default App;
 //1 to confirm your transaction to mint the nft on blockchain
 // 2.Approve the market place to spend the nft
 // 3. list the nft on the marketplace
+
+
+// Deploying contracts with the account: 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266
+// Account balance: 10000000000000000000000
+// NFT address: 0x5FbDB2315678afecb367f032d93F642f64180aa3
+// marketplace address: 0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512
+// contractAddress 0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512
+// name Marketplace
+// contractsDir C:\Users\ritik\OneDrive\Desktop\practices\nftWithHardhatPractice\nft_with_hardhat\src\backend\scripts/../../frontend/contractsData
+// contractAddress 0x5FbDB2315678afecb367f032d93F642f64180aa3
+// name NFT
+// contractsDir C:\Users\ritik\OneDrive\Desktop\practices\nftWithHardhatPractice\nft_with_hardhat\src\backend\scripts/../../frontend/contractsData

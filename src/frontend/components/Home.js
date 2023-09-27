@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { ethers } from "ethers";
-import { create } from "ipfs-http-client";
+import { create } from "ipfs-http-client";      //They upload the data to IPFS and receive a content-addressed hash in return. This hash can then be stored on the Ethereum blockchain to reference the data.
 import { Buffer } from "buffer";
+//users can access it directly by using the hash, and it can be retrieved from any node in the IPFS network.
 
 const Home = ({ nft, marketplace, account, connectAccountWithMetamast }) => {
   const [inputValues, setInputValues] = useState({
@@ -70,6 +71,7 @@ const Home = ({ nft, marketplace, account, connectAccountWithMetamast }) => {
         await marketplace.updateNFTPrice(regularNumber, listingPrice)
       ).wait();
       getAllNfts();
+      loadListedItems();
     } else {
       setLoading(true);
       const result = await client.add(
@@ -97,6 +99,7 @@ const Home = ({ nft, marketplace, account, connectAccountWithMetamast }) => {
         });
         setImageInput("");
         getAllNfts();
+        loadListedItems();
       }
     }
   };
@@ -107,6 +110,7 @@ const Home = ({ nft, marketplace, account, connectAccountWithMetamast }) => {
     let items = [];
     for (let i = 1; i <= itemCount; i++) {
       const item = await marketplace.items(i);
+      console.log("item", item);
       if (!item.sold) {
         //filtering only on the basis of sold nft key i.e T or F
         const uri = await nft.tokenURI(item.tokenId);
@@ -124,6 +128,7 @@ const Home = ({ nft, marketplace, account, connectAccountWithMetamast }) => {
           description: metadata.description,
           image: metadata.imageInput,
           price: item.price,
+          tokenId: item.tokenId,
         });
       }
     }
@@ -224,11 +229,11 @@ const Home = ({ nft, marketplace, account, connectAccountWithMetamast }) => {
 
   const deleteNft = async (item) => {
     console.log("item", item);
-    const bigNumber = item?.itemId;
+    const bigNumber = item?.tokenId;
     const regularNumber = bigNumber?.toNumber();
     console.log("regularNumber", regularNumber);
     const finalResponse = await (
-      await marketplace.deleteNftFromMarket(item?.nft, regularNumber)
+      await marketplace.deleteNftFromMarket(regularNumber, item?.seller)
     ).wait();
     console.log("finalResponse", finalResponse);
     getAllNfts();
